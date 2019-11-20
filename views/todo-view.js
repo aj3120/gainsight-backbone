@@ -1,9 +1,11 @@
-import {Todo} from '../models/todo-model' 
+import { Todo } from '../models/todo-model'
 import Backbone from 'backbone'
 import _ from 'underscore'
+import '../styles/todo.css'
 
 export const TodoView = Backbone.View.extend({
     tagName: 'li',
+    id: "todo",
     model: Todo,
     events: {
         'click #check': "onTodoClick",
@@ -12,22 +14,22 @@ export const TodoView = Backbone.View.extend({
         "click .update": "onTodoUpdate",
         "click .remove": 'onTodoRemove',
     },
-    onTodoUpdate: function (e) {
+    onTodoUpdate: function(e) {
         this.model.updateContent()
     },
-    onTodoEdit: function () {
+    onTodoEdit: function() {
         this.model.toggleEdit()
     },
-    onTodoRemove: function () {
+    onTodoRemove: function() {
         this.model.destroy()
     },
-    onTodoClick: function () {
+    onTodoClick: function() {
         this.model.toggleCheck()
     },
-    initialize: function () {
+    initialize: function() {
         this.listenTo(this.model, 'change', this.render)
     },
-    render: function () {
+    render: function() {
         this.template = _.template(`
             <div class="todo-data">
                 <% if (checked){ %>
@@ -39,12 +41,12 @@ export const TodoView = Backbone.View.extend({
                 <% if(edit){%>
                     <input id="content-field" type="text" value="<%= content %>"/>
                 <% } else {%>
-                    <span style="text-decoration : <%= strike %> " id="content">
+                    <div style="text-decoration : <%= strike %> " id="content">
                         <%= content %>
-                    </span>
+                    </div>
                 <% } %>
             </div>
-            <div>
+            <div class="todo-button">
                 <% if(edit){%>
                     <button class="update">update</button>
                 <% } else {%>

@@ -16,6 +16,5 @@ let todo2 = new Todo({
 })
 
 
-
 let todos = new TodoCollection([todo1, todo2])
-const app = new AppContainer({model:todos})
+new AppContainer({model:todos})
